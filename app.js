@@ -320,12 +320,14 @@ document.querySelectorAll("input[name='requiereCambio']").forEach(radio => {
 
 
 orderTypeRadios.forEach(radio => {
-  radio.addEventListener("change", () => {
-    if (radio.value === "domicilio") {
+  radio.addEventListener("change", function () {
+
+    if (this.value === "domicilio") {
       addressSection.style.display = "block";
     } else {
       addressSection.style.display = "none";
     }
+
   });
 });
 
@@ -362,3 +364,4 @@ if (getLocationBtn) {
 }
 
 });
+
