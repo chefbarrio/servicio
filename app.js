@@ -214,7 +214,7 @@ updateCart();
 
   // Ir a WhatsApp
   window.location.href =
-    "https://wa.me/529811064643?text=" + encodeURIComponent(msg);
+    "https://wa.me/529811347875?text=" + encodeURIComponent(msg);
 
 })
 .catch(error => {
@@ -381,3 +381,4 @@ if (getLocationBtn) {
 }
 
 });
+
