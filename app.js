@@ -113,7 +113,7 @@ document.querySelectorAll(".minus-btn").forEach(btn => {
 
 /* ===== WHATSAPP ===== */
 if (sendOrderBtn) {
-  sendOrderBtn.onclick = () => {
+  sendOrderBtn.onclick = async () => {
 
     if (!customerNameInput.value.trim()) {
       alert("Escribe tu nombre");
@@ -132,14 +132,20 @@ if (sendOrderBtn) {
 
 
     if (!orderType) {
-      alert("Selecciona tipo de pedido");
-      return;
-    }
+  alert("Selecciona tipo de pedido");
+  return;
+}
 
-    if (!paymentType) {
-      alert("Selecciona forma de pago");
-      return;
-    }
+if (!paymentType) {
+  alert("Selecciona forma de pago");
+  return;
+}
+
+/* 🔒 BLOQUEAR BOTÓN */
+sendOrderBtn.disabled = true;
+const textoOriginal = sendOrderBtn.innerText;
+sendOrderBtn.innerText = "Enviando pedido...";
+sendOrderBtn.style.opacity = "0.6"
 
     // ✅ AHORA SÍ: crear el mensaje primero
     let msg = "🍔 CHEF BARRIOS\n";
@@ -214,6 +220,11 @@ updateCart();
 .catch(error => {
   console.error("Error al guardar en Sheets:", error);
   alert("Hubo un problema guardando el pedido");
+
+  // 🔓 REACTIVAR BOTÓN
+  sendOrderBtn.disabled = false;
+  sendOrderBtn.innerText = textoOriginal;
+  sendOrderBtn.style.opacity = "1";
 });
   };
 }
@@ -300,21 +311,27 @@ const transferenciaRadio = document.querySelector(
 const campoCambio = document.getElementById("campo-cambio");
 const montoCambio = document.getElementById("monto-cambio");
 
-if (efectivoRadio && transferenciaRadio && campoCambio) {
+const paymentRadios = document.querySelectorAll("input[name='paymentType']");
+const requiereCambioRadios = document.querySelectorAll("input[name='requiereCambio']");
 
-  efectivoRadio.addEventListener("change", () => {
-    campoCambio.style.display = "block";
+paymentRadios.forEach(radio => {
+  radio.addEventListener("change", function () {
+    if (this.value === "efectivo") {
+      campoCambio.style.display = "block";
+    } else {
+      campoCambio.style.display = "none";
+      montoCambio.style.display = "none";
+    }
   });
+});
 
-  transferenciaRadio.addEventListener("change", () => {
-    campoCambio.style.display = "none";
-    montoCambio.style.display = "none";
-  });
-}
-
-document.querySelectorAll("input[name='requiereCambio']").forEach(radio => {
-  radio.addEventListener("change", () => {
-    montoCambio.style.display = radio.value === "si" ? "block" : "none";
+requiereCambioRadios.forEach(radio => {
+  radio.addEventListener("change", function () {
+    if (this.value === "si") {
+      montoCambio.style.display = "block";
+    } else {
+      montoCambio.style.display = "none";
+    }
   });
 });
 
@@ -364,4 +381,3 @@ if (getLocationBtn) {
 }
 
 });
-
