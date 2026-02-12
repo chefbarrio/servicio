@@ -228,26 +228,37 @@ for (let item in cart) {
 
 fetch("https://script.google.com/macros/s/AKfycbyaXoNAHj1wU2TvOc8Ek4QAinZYrzMaaC7zWn_0rbavaDZu4s29caVXE7LAeYfE7nLhSw/exec", {
   method: "POST",
+  headers: {
+    "Content-Type": "application/x-www-form-urlencoded"
+  },
   body: new URLSearchParams({
     cliente: customerNameInput.value,
     items: JSON.stringify(itemsArray)
   })
 })
-.then(() => {
-	
-	cart = {};
-total = 0;
-saveData();
-restoreBadges();
-updateCart();
+.then(res => res.text())
+.then(data => {
 
+  console.log("Respuesta de Sheets:", data);
 
-  // Ir a WhatsApp
+  if (data !== "OK") {
+    throw new Error("No respondió OK");
+  }
+
+  // 🧹 Limpiar carrito
+  cart = {};
+  total = 0;
+  saveData();
+  restoreBadges();
+  updateCart();
+
+  // 📲 Ir a WhatsApp
   window.location.href =
     "https://wa.me/529811347875?text=" + encodeURIComponent(msg);
 
 })
 .catch(error => {
+
   console.error("Error al guardar en Sheets:", error);
   alert("Hubo un problema guardando el pedido");
 
@@ -424,6 +435,7 @@ if (getLocationBtn) {
 }
 
 });
+
 
 
 
