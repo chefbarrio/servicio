@@ -148,6 +148,28 @@ body{
   font-weight: bold;
 }
 
+/* ================= DELETE BADGE ================= */
+.delete-badge{
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  background: #ff3b30;
+  color: white;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.delete-badge:active{
+  transform: scale(0.9);
+}
+
 /* ================= PRICE ================= */
 .price{
   font-weight: bold;
