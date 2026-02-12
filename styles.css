@@ -380,3 +380,20 @@ body{
   display: flex;
   gap: 15px;
 }
+/* Caja de transferencia */
+#datos-transferencia {
+  display: none; /* empieza oculto */
+}
+
+.transfer-box {
+  background: #f8f8f8;
+  padding: 12px;
+  margin-top: 10px;
+  border-radius: 10px;
+  border: 1px solid #ddd;
+  font-size: 14px;
+}
+
+.transfer-box p {
+  margin: 4px 0;
+}
