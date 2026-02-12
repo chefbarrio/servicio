@@ -299,22 +299,34 @@ const transferenciaRadio = document.querySelector(
 );
 const campoCambio = document.getElementById("campo-cambio");
 const montoCambio = document.getElementById("monto-cambio");
+const datosTransferencia = document.getElementById("datos-transferencia");
 
-if (efectivoRadio && transferenciaRadio && campoCambio) {
 
-  efectivoRadio.addEventListener("change", () => {
-    campoCambio.style.display = "block";
+const paymentRadios = document.querySelectorAll("input[name='paymentType']");
+const requiereCambioRadios = document.querySelectorAll("input[name='requiereCambio']");
+
+paymentRadios.forEach(radio => {
+  radio.addEventListener("change", function () {
+
+    if (this.value === "efectivo") {
+      campoCambio.style.display = "block";
+      datosTransferencia.style.display = "none";
+    } else {
+      campoCambio.style.display = "none";
+      montoCambio.style.display = "none";
+      datosTransferencia.style.display = "block";
+    }
+
   });
+});
 
-  transferenciaRadio.addEventListener("change", () => {
-    campoCambio.style.display = "none";
-    montoCambio.style.display = "none";
-  });
-}
-
-document.querySelectorAll("input[name='requiereCambio']").forEach(radio => {
-  radio.addEventListener("change", () => {
-    montoCambio.style.display = radio.value === "si" ? "block" : "none";
+requiereCambioRadios.forEach(radio => {
+  radio.addEventListener("change", function () {
+    if (this.value === "si") {
+      montoCambio.style.display = "block";
+    } else {
+      montoCambio.style.display = "none";
+    }
   });
 });
 
@@ -364,5 +376,6 @@ if (getLocationBtn) {
 }
 
 });
+
 
 
