@@ -226,7 +226,7 @@ for (let item in cart) {
 	sendOrderBtn.innerText = "Enviando pedido...";
 	sendOrderBtn.style.opacity = "0.6";
 
-fetch("https://script.google.com/macros/s/AKfycbzZV0aMcegLsJ_La1p6499ZlzZC2I9F1TbTWsJPxMjvK9--KQUM0Cl5Yarc3g9Y0kMuNA/exec", {
+fetch("https://script.google.com/macros/s/AKfycbyaXoNAHj1wU2TvOc8Ek4QAinZYrzMaaC7zWn_0rbavaDZu4s29caVXE7LAeYfE7nLhSw/exec", {
   method: "POST",
   body: new URLSearchParams({
     cliente: customerNameInput.value,
@@ -424,6 +424,7 @@ if (getLocationBtn) {
 }
 
 });
+
 
 
 
