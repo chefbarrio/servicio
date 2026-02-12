@@ -113,7 +113,7 @@ document.querySelectorAll(".minus-btn").forEach(btn => {
 
 /* ===== WHATSAPP ===== */
 if (sendOrderBtn) {
-  sendOrderBtn.onclick = () => {
+  sendOrderBtn.onclick = async () => {
 
     if (!customerNameInput.value.trim()) {
       alert("Escribe tu nombre");
@@ -190,6 +190,12 @@ for (let item in cart) {
   });
 }
 
+// 🔒 BLOQUEAR BOTÓN
+sendOrderBtn.disabled = true;
+const textoOriginal = sendOrderBtn.innerText;
+sendOrderBtn.innerText = "Enviando pedido...";
+sendOrderBtn.style.opacity = "0.6";
+
 fetch("https://script.google.com/macros/s/AKfycbzZV0aMcegLsJ_La1p6499ZlzZC2I9F1TbTWsJPxMjvK9--KQUM0Cl5Yarc3g9Y0kMuNA/exec", {
   method: "POST",
   body: new URLSearchParams({
@@ -214,6 +220,11 @@ updateCart();
 .catch(error => {
   console.error("Error al guardar en Sheets:", error);
   alert("Hubo un problema guardando el pedido");
+
+  // 🔓 REACTIVAR BOTÓN
+  sendOrderBtn.disabled = false;
+  sendOrderBtn.innerText = textoOriginal;
+  sendOrderBtn.style.opacity = "1";
 });
   };
 }
@@ -376,6 +387,7 @@ if (getLocationBtn) {
 }
 
 });
+
 
 
 
