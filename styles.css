@@ -419,3 +419,12 @@ body{
 .transfer-box p {
   margin: 4px 0;
 }
+
+.sugerencia-input {
+  width: 90%;
+  margin-top: 8px;
+  padding: 6px;
+  font-size: 12px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
