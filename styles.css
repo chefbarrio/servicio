@@ -429,24 +429,3 @@ body{
   border: 1px solid #ccc;
 }
 
-/* ================= RADIO BUTTONS HORIZONTALES ================= */
-.radio-group {
-  display: flex;          /* pone los radios en fila */
-  gap: 20px;              /* espacio entre cada opción */
-  flex-wrap: wrap;        /* si no caben, bajan a la siguiente línea */
-}
-
-.radio-group label {
-  display: flex;          /* alinea radio y texto */
-  align-items: center;
-  cursor: pointer;
-  padding: 5px 0;
-  font-weight: 500;
-  gap: 6px;               /* espacio entre radio y texto */
-}
-
-.radio-group input[type="radio"] {
-  width: 18px;
-  height: 18px;
-  margin: 0;              /* elimina márgenes extra */
-}
