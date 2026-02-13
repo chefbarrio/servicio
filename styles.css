@@ -428,4 +428,23 @@ body{
   border-radius: 8px;
   border: 1px solid #ccc;
 }
+/* 🔥 FIX bloqueo radios en móvil */
+.cart-modal {
+  pointer-events: auto;
+}
+
+.tabs {
+  pointer-events: auto;
+}
+
+@media (max-width: 768px) {
+  .tabs {
+    z-index: 1;   /* baja el sticky en móvil */
+  }
+
+  .cart-modal {
+    z-index: 5000; /* asegúrate que esté encima de TODO */
+  }
+}
+
 
