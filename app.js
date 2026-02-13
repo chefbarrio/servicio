@@ -18,6 +18,11 @@ const customerNameInput = document.getElementById("customerName");
 const getLocationBtn = document.getElementById("getLocation");
 let locationLink = "";
 
+// Evitar que el input dispare el click del producto
+document.querySelectorAll(".sugerencia-input").forEach(input => {
+  input.addEventListener("click", e => e.stopPropagation());
+});
+
 // Crear botón eliminar en cada card
 cards.forEach(card => {
   const imgContainer = card.querySelector(".img-container");
@@ -64,21 +69,29 @@ if (customerNameInput) {
 
 /* ===== AGREGAR ===== */
 cards.forEach(card => {
-  card.onclick = () => {
+  card.addEventListener("click", () => {
+
     const name = card.dataset.name;
     const price = Number(card.dataset.price);
-    const badge = card.querySelector(".badge");
+    const noteInput = card.querySelector(".sugerencia-input");
+    const note = noteInput ? noteInput.value.trim() : "";
 
-    if (!cart[name]) cart[name] = { qty: 0, price };
+    if (!cart[name]) {
+      cart[name] = { qty: 0, price, note: "" };
+    }
 
     cart[name].qty++;
     total += price;
 
+    // Siempre actualizar la nota si hay texto
+    cart[name].note = note;
+
     saveData();
-	restoreBadges();
+    restoreBadges();
     showToast();
     updateCart();
-  };
+
+  });
 });
 
 /* ===== CARRITO ===== */
@@ -178,6 +191,10 @@ if (sendOrderBtn) {
     for (let item in cart) {
       const sub = (cart[item].qty * cart[item].price).toFixed(2);
       msg += `${cart[item].qty} x ${item} - $${sub}\n`;
+	  
+	  if (cart[item].note) {
+    msg += `   📝 ${cart[item].note}\n`;
+  }
     }
 
     msg += "\nTotal: $" + total.toFixed(2);
@@ -435,9 +452,3 @@ if (getLocationBtn) {
 }
 
 });
-
-
-
-
-
-
