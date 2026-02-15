@@ -18,6 +18,22 @@ const customerNameInput = document.getElementById("customerName");
 const getLocationBtn = document.getElementById("getLocation");
 let locationLink = "";
 
+/* =====================
+   HORARIO CONTROL PEDIDOS
+===================== */
+
+function negocioAbierto() {
+  const ahora = new Date();
+  const hora = ahora.getHours();
+  const minutos = ahora.getMinutes();
+  const horaActual = hora + (minutos / 60);
+
+  const apertura = 8.5; // 8:30 AM
+  const cierre = 23;    // 11:00 PM
+
+  return horaActual >= apertura && horaActual < cierre;
+}
+
 // Evitar que el input dispare el click del producto
 document.querySelectorAll(".sugerencia-input").forEach(input => {
   input.addEventListener("click", e => e.stopPropagation());
@@ -156,6 +172,15 @@ document.querySelectorAll(".minus-btn").forEach(btn => {
 /* ===== WHATSAPP ===== */
 if (sendOrderBtn) {
   sendOrderBtn.onclick = async () => {
+
+	  if (sendOrderBtn) {
+  sendOrderBtn.onclick = async () => {
+	  
+	// 🔒 BLOQUEO POR HORARIO
+	if (!negocioAbierto()) {
+		alert("⛔ Estamos cerrados.\nHorario de atención: 8:30 AM a 11:00 PM");
+		return;
+	}
 
     if (!customerNameInput.value.trim()) {
       alert("Escribe tu nombre");
@@ -452,3 +477,4 @@ if (getLocationBtn) {
 }
 
 });
+
