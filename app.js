@@ -15,24 +15,7 @@ const openCartBtn = document.getElementById("openCart");
 const closeCartBtn = document.getElementById("closeCart");
 const sendOrderBtn = document.getElementById("sendOrder");
 const customerNameInput = document.getElementById("customerName");
-const getLocationBtn = document.getElementById("getLocation");
 let locationLink = "";
-
-/* =====================
-   HORARIO CONTROL PEDIDOS
-===================== */
-
-function negocioAbierto() {
-  const ahora = new Date();
-  const hora = ahora.getHours();
-  const minutos = ahora.getMinutes();
-  const horaActual = hora + (minutos / 60);
-
-  const apertura = 8.5; // 8:30 AM
-  const cierre = 23;    // 11:00 PM
-
-  return horaActual >= apertura && horaActual < cierre;
-}
 
 // Evitar que el input dispare el click del producto
 document.querySelectorAll(".sugerencia-input").forEach(input => {
@@ -82,7 +65,7 @@ if (customerNameInput) {
     localStorage.setItem("customerName", customerNameInput.value);
 }
 
-
+/* ===== AGREGAR ===== */
 /* ===== AGREGAR ===== */
 cards.forEach(card => {
   card.addEventListener("click", () => {
@@ -173,12 +156,6 @@ document.querySelectorAll(".minus-btn").forEach(btn => {
 if (sendOrderBtn) {
   sendOrderBtn.onclick = async () => {
 
-    // 🔒 BLOQUEO POR HORARIO
-    if (!negocioAbierto()) {
-      alert("⛔ Estamos cerrados.\nHorario de atención: 8:30 AM a 11:00 PM");
-      return;
-    }
-
     if (!customerNameInput.value.trim()) {
       alert("Escribe tu nombre");
       return;
@@ -192,7 +169,8 @@ if (sendOrderBtn) {
     const orderType = document.querySelector("input[name='orderType']:checked");
     const paymentType = document.querySelector("input[name='paymentType']:checked");
     const addressInput = document.getElementById("address");
-    const requiereCambio = document.querySelector("input[name='requiereCambio']:checked");
+	const requiereCambio = document.querySelector("input[name='requiereCambio']:checked");
+
 
     if (!orderType) {
       alert("Selecciona tipo de pedido");
@@ -203,16 +181,17 @@ if (sendOrderBtn) {
       alert("Selecciona forma de pago");
       return;
     }
+	
 
     // ✅ AHORA SÍ: crear el mensaje primero
-    let msg = "🍔 CHEF BARRIOS\n";
+    let msg = "🍔 CHEF\n";
     msg += "Cliente: " + customerNameInput.value + "\n\n";
 
     for (let item in cart) {
       const sub = (cart[item].qty * cart[item].price).toFixed(2);
       msg += `${cart[item].qty} x ${item} - $${sub}\n`;
 	  
-	  if (cart[item].note) {
+	   if (cart[item].note) {
     msg += `   📝 ${cart[item].note}\n`;
   }
     }
@@ -263,7 +242,7 @@ for (let item in cart) {
 	sendOrderBtn.innerText = "Enviando pedido...";
 	sendOrderBtn.style.opacity = "0.6";
 
-fetch("https://script.google.com/macros/s/AKfycbwvyatbDFfHzLN7k6Xfv1JjbSMD-7DX-qL9AGhdoxDFIS3Uz9iaE4fLh9wQcWvwk737IQ/exec", {
+fetch("https://script.google.com/macros/s/AKfycby0eABhFCzb0p-N-TDv2UASIP20ZCSyuZ_1RNdyuzJ0x5BwZdtLm-xXHRlTfBwLI5v-1Q/exec", {
   method: "POST",
   headers: {
     "Content-Type": "application/x-www-form-urlencoded"
@@ -523,6 +502,8 @@ if (closeMapBtn) {
 
 
 });
+
+
 
 
 
