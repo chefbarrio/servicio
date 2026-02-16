@@ -173,14 +173,11 @@ document.querySelectorAll(".minus-btn").forEach(btn => {
 if (sendOrderBtn) {
   sendOrderBtn.onclick = async () => {
 
-	  if (sendOrderBtn) {
-  sendOrderBtn.onclick = async () => {
-	  
-	// 🔒 BLOQUEO POR HORARIO
-	if (!negocioAbierto()) {
-		alert("⛔ Estamos cerrados.\nHorario de atención: 8:30 AM a 11:00 PM");
-		return;
-	}
+    // 🔒 BLOQUEO POR HORARIO
+    if (!negocioAbierto()) {
+      alert("⛔ Estamos cerrados.\nHorario de atención: 8:30 AM a 11:00 PM");
+      return;
+    }
 
     if (!customerNameInput.value.trim()) {
       alert("Escribe tu nombre");
@@ -195,8 +192,7 @@ if (sendOrderBtn) {
     const orderType = document.querySelector("input[name='orderType']:checked");
     const paymentType = document.querySelector("input[name='paymentType']:checked");
     const addressInput = document.getElementById("address");
-	const requiereCambio = document.querySelector("input[name='requiereCambio']:checked");
-
+    const requiereCambio = document.querySelector("input[name='requiereCambio']:checked");
 
     if (!orderType) {
       alert("Selecciona tipo de pedido");
@@ -207,7 +203,6 @@ if (sendOrderBtn) {
       alert("Selecciona forma de pago");
       return;
     }
-	
 
     // ✅ AHORA SÍ: crear el mensaje primero
     let msg = "🍔 CHEF BARRIOS\n";
@@ -528,5 +523,6 @@ if (closeMapBtn) {
 
 
 });
+
 
 
