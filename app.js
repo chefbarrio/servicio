@@ -444,37 +444,89 @@ orderTypeRadios.forEach(radio => {
   });
 });
 
-if (getLocationBtn) {
-  getLocationBtn.onclick = () => {
+/* =====================
+   MAPA INTERACTIVO
+===================== */
 
-    if (!navigator.geolocation) {
-      alert("Tu celular no soporta ubicación");
-      return;
-    }
+const openMapBtn = document.getElementById("openMap");
+const mapModal = document.getElementById("mapModal");
+const confirmLocationBtn = document.getElementById("confirmLocation");
+const closeMapBtn = document.getElementById("closeMap");
 
-    getLocationBtn.innerText = "Obteniendo ubicación...";
-	
-	
+let mapInstance;
+let marker;
+let selectedLatLng;
 
-    navigator.geolocation.getCurrentPosition(
-      (position) => {
-        const lat = position.coords.latitude;
-        const lng = position.coords.longitude;
+if (openMapBtn) {
 
-        locationLink = `https://maps.google.com/?q=${lat},${lng}`;
+  openMapBtn.onclick = () => {
 
-        document.getElementById("address").value =
-          "Ubicación enviada por GPS 📍";
+    mapModal.style.display = "flex";
 
-        getLocationBtn.innerText = "📍 Ubicación lista";
-      },
-      () => {
-        alert("No se pudo obtener la ubicación");
-        getLocationBtn.innerText = "📍 Usar ubicación actual";
+    if (!mapInstance) {
+
+      const defaultLat = 19.4326;
+      const defaultLng = -99.1332;
+
+      mapInstance = L.map("map").setView([defaultLat, defaultLng], 15);
+
+      L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+        attribution: "© OpenStreetMap"
+      }).addTo(mapInstance);
+
+      marker = L.marker([defaultLat, defaultLng], {
+        draggable: true
+      }).addTo(mapInstance);
+
+      selectedLatLng = marker.getLatLng();
+
+      marker.on("dragend", () => {
+        selectedLatLng = marker.getLatLng();
+      });
+
+      mapInstance.on("click", (e) => {
+        marker.setLatLng(e.latlng);
+        selectedLatLng = e.latlng;
+      });
+
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(position => {
+          const lat = position.coords.latitude;
+          const lng = position.coords.longitude;
+
+          mapInstance.setView([lat, lng], 17);
+          marker.setLatLng([lat, lng]);
+          selectedLatLng = marker.getLatLng();
+        });
       }
-    );
+    }
   };
 }
 
+if (confirmLocationBtn) {
+  confirmLocationBtn.onclick = () => {
+
+    if (!selectedLatLng) return;
+
+    const lat = selectedLatLng.lat;
+    const lng = selectedLatLng.lng;
+
+    locationLink = `https://maps.google.com/?q=${lat},${lng}`;
+
+    document.getElementById("address").value =
+      "Ubicación seleccionada 📍";
+
+    mapModal.style.display = "none";
+  };
+}
+
+if (closeMapBtn) {
+  closeMapBtn.onclick = () => {
+    mapModal.style.display = "none";
+  };
+}
+
+
 });
+
 
