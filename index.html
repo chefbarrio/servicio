@@ -779,9 +779,28 @@
 <div class="order-section" id="addressSection" style="display:none;">
   <input type="text" id="address" placeholder="Dirección de entrega">
 
-  <button id="getLocation" type="button">
-    📍 Usar ubicación actual
-  </button>
+  <button id="openMap" type="button">
+  📍 Elegir ubicación en mapa
+</button>
+
+<div id="mapModal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.6); z-index:9999; justify-content:center; align-items:center;">
+  
+  <div style="width:95%; height:80%; background:white; border-radius:20px; padding:10px; display:flex; flex-direction:column;">
+    
+    <div id="map" style="flex:1; border-radius:15px;"></div>
+
+    <button id="confirmLocation" style="margin-top:10px; padding:12px; border:none; border-radius:20px; background:#1db954; color:white; font-weight:bold;">
+      Confirmar ubicación
+    </button>
+
+    <button id="closeMap" style="margin-top:5px; padding:10px; border:none; border-radius:20px;">
+      Cancelar
+    </button>
+
+  </div>
+
+</div>
+
 </div>
 
 <!-- ===== FORMA DE PAGO ===== -->
@@ -839,5 +858,6 @@
 <script src="app.js"></script>
 </body>
 </html>
+
 
 
