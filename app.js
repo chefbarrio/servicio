@@ -146,7 +146,6 @@ addToCartBtn.onclick = () => {
 };
 
 
-
 /* ===== NOMBRE ===== */
 if (customerNameInput) {
   customerNameInput.value = localStorage.getItem("customerName") || "";
@@ -155,8 +154,6 @@ if (customerNameInput) {
 }
 
 /* ===== AGREGAR ===== */
-
-
 
 
 /* ===== CARRITO ===== */

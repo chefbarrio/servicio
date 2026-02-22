@@ -491,6 +491,11 @@ body{
   transform: scale(0.98);
 }
 
+
+
+
+
+
 /* ================= PRODUCT MODAL ================= */
 
 .product-modal{
@@ -623,7 +628,3 @@ body{
   font-weight: bold;
   cursor: pointer;
 }
-
-
-
-

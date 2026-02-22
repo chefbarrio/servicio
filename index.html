@@ -831,6 +831,34 @@
 
 <div class="toast" id="toast">Producto agregado ✅</div>
 
+<!-- MODAL PRODUCTO -->
+<div class="product-modal" id="productModal">
+  <div class="product-content">
+
+    <button class="close-product" id="closeProduct">✕</button>
+
+    <img id="modalImage" class="modal-image">
+
+    <h2 id="modalName"></h2>
+
+    <p id="modalDescription" class="modal-description"></p>
+
+    <textarea id="modalComment" placeholder="Instrucciones especiales... (Ej: sin cebolla)"></textarea>
+
+    <div class="modal-bottom">
+
+      <div class="quantity">
+        <button id="minusBtn">−</button>
+        <span id="quantityValue">1</span>
+        <button id="plusBtn">+</button>
+      </div>
+
+      <button id="addToCartBtn">Agregar al carrito</button>
+
+    </div>
+
+  </div>
+</div>
 
 <script src="app.js"></script>
 </body>
