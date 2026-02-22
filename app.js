@@ -56,6 +56,95 @@ cards.forEach(card => {
 restoreBadges();
 updateCart();
 
+/* =====================
+   MODAL PRODUCTO
+===================== */
+
+const productModal = document.getElementById("productModal");
+const closeProduct = document.getElementById("closeProduct");
+const modalImage = document.getElementById("modalImage");
+const modalName = document.getElementById("modalName");
+const modalDescription = document.getElementById("modalDescription");
+const modalComment = document.getElementById("modalComment");
+const quantityValue = document.getElementById("quantityValue");
+const plusBtn = document.getElementById("plusBtn");
+const minusBtn = document.getElementById("minusBtn");
+const addToCartBtn = document.getElementById("addToCartBtn");
+
+let selectedProduct = null;
+let modalQty = 1;
+
+/* ABRIR MODAL AL TOCAR IMAGEN */
+document.querySelectorAll(".card .img-container img").forEach(img => {
+  img.addEventListener("click", (e) => {
+
+    e.stopPropagation();
+
+    const card = e.target.closest(".card");
+
+    selectedProduct = {
+      name: card.dataset.name,
+      price: Number(card.dataset.price),
+      image: card.querySelector("img").src
+    };
+
+    modalImage.src = selectedProduct.image;
+    modalName.textContent = selectedProduct.name;
+    modalDescription.textContent = "Delicioso platillo preparado al momento.";
+    modalComment.value = "";
+    modalQty = 1;
+    quantityValue.textContent = modalQty;
+
+    productModal.classList.add("active");
+  });
+});
+
+/* CERRAR */
+closeProduct.onclick = () => {
+  productModal.classList.remove("active");
+};
+
+/* CANTIDAD */
+plusBtn.onclick = () => {
+  modalQty++;
+  quantityValue.textContent = modalQty;
+};
+
+minusBtn.onclick = () => {
+  if (modalQty > 1) {
+    modalQty--;
+    quantityValue.textContent = modalQty;
+  }
+};
+
+/* AGREGAR DESDE MODAL */
+addToCartBtn.onclick = () => {
+
+  if (!selectedProduct) return;
+
+  const name = selectedProduct.name;
+  const price = selectedProduct.price;
+  const note = modalComment.value.trim();
+
+  if (!cart[name]) {
+    cart[name] = { qty: 0, price, note: "" };
+  }
+
+  cart[name].qty += modalQty;
+  total += price * modalQty;
+
+  if (note) {
+    cart[name].note = note;
+  }
+
+  saveData();
+  restoreBadges();
+  updateCart();
+  showToast();
+
+  productModal.classList.remove("active");
+};
+
 
 
 /* ===== NOMBRE ===== */
@@ -66,32 +155,9 @@ if (customerNameInput) {
 }
 
 /* ===== AGREGAR ===== */
-/* ===== AGREGAR ===== */
-cards.forEach(card => {
-  card.addEventListener("click", () => {
 
-    const name = card.dataset.name;
-    const price = Number(card.dataset.price);
-    const noteInput = card.querySelector(".sugerencia-input");
-    const note = noteInput ? noteInput.value.trim() : "";
 
-    if (!cart[name]) {
-      cart[name] = { qty: 0, price, note: "" };
-    }
 
-    cart[name].qty++;
-    total += price;
-
-    // Siempre actualizar la nota si hay texto
-    cart[name].note = note;
-
-    saveData();
-    restoreBadges();
-    showToast();
-    updateCart();
-
-  });
-});
 
 /* ===== CARRITO ===== */
 function updateCart() {

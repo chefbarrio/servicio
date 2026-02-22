@@ -491,7 +491,138 @@ body{
   transform: scale(0.98);
 }
 
+/* ================= PRODUCT MODAL ================= */
 
+.product-modal{
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.4);
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  opacity: 0;
+  pointer-events: none;
+  transition: 0.3s;
+  z-index: 6000; /* más alto que cart */
+}
+
+.product-modal.active{
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.product-content{
+  width: 100%;
+  max-width: 500px;
+  background: white;
+  border-radius: 35px 35px 0 0;
+  padding: 20px;
+  transform: translateY(100%);
+  transition: 0.35s ease;
+  max-height: 95vh;
+  overflow-y: auto;
+  box-shadow: 0 -10px 30px rgba(0,0,0,0.15);
+}
+
+.product-modal.active .product-content{
+  transform: translateY(0);
+}
+
+/* IMAGEN */
+.modal-image{
+  width: 100%;
+  border-radius: 25px;
+  margin-bottom: 15px;
+}
+
+/* TITULO */
+#modalName{
+  font-size: 20px;
+  margin-bottom: 5px;
+}
+
+/* DESCRIPCION */
+.modal-description{
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 15px;
+}
+
+/* TEXTAREA */
+#modalComment{
+  width: 100%;
+  min-height: 80px;
+  border-radius: 20px;
+  border: 1px solid #ccc;
+  padding: 12px;
+  font-size: 14px;
+  resize: none;
+  margin-bottom: 20px;
+}
+
+/* CONTROLES INFERIORES */
+.modal-bottom{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* CANTIDAD */
+.quantity{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.quantity button{
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: none;
+  background: #1db954;
+  color: white;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.quantity button:active{
+  transform: scale(0.9);
+}
+
+#quantityValue{
+  font-size: 18px;
+  font-weight: bold;
+}
+
+/* BOTON AGREGAR */
+#addToCartBtn{
+  background: #1db954;
+  color: white;
+  border: none;
+  padding: 14px 20px;
+  border-radius: 30px;
+  font-weight: bold;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+#addToCartBtn:active{
+  transform: scale(0.97);
+}
+
+/* BOTON CERRAR */
+.close-product{
+  position: absolute;
+  right: 20px;
+  top: 20px;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: none;
+  background: #eee;
+  font-weight: bold;
+  cursor: pointer;
+}
 
 
 
